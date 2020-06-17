@@ -26,7 +26,6 @@ import android.os.Parcelable;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -370,7 +369,7 @@ public class VelocityLinePageIndicator extends View implements VelocityPageIndic
                 result = Math.min(result, specSize);
             }
         }
-        return (int)FloatMath.ceil(result);
+        return (int) Math.ceil(result);
     }
 
     /**
@@ -396,7 +395,7 @@ public class VelocityLinePageIndicator extends View implements VelocityPageIndic
                 result = Math.min(result, specSize);
             }
         }
-        return (int)FloatMath.ceil(result);
+        return (int) Math.ceil(result);
     }
 
     @Override
