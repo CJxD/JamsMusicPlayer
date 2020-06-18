@@ -4,9 +4,12 @@ android {
     compileSdkVersion 28
     useLibrary 'org.apache.http.legacy'
 
+    Properties localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file('local.properties')))
+
     defaultConfig {
         applicationId "com.jams.music.player"
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion 19
 
         // RenderScript backward compatibility for gaussian blurs.
@@ -17,9 +20,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            buildConfigField(
+                    'String',
+                    'NUMBEREIGHT_KEY',
+                    '"' + localProperties['keys.numbereight'].toString() + '"')
+        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+            buildConfigField(
+                    'String',
+                    'NUMBEREIGHT_KEY',
+                    '"' + localProperties['keys.numbereight'].toString() + '"')
         }
     }
 
@@ -30,11 +44,15 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+        exclude 'androidsupportmultidexversion.txt'
     }
 }
 
 repositories {
     mavenCentral()
+    maven {
+        url 'http://repo.numbereight.me/artifactory/gradle-release-local'
+    }
 }
 
 dependencies {
@@ -57,7 +75,12 @@ dependencies {
     implementation files('libs/universal-image-loader-1.9.3-with-sources.jar')
     implementation files('libs/com.haarman.listviewanimations-2.6.0.jar')
     implementation files('libs/nineoldandroids-2.4.0.jar')
+    implementation files('libs/renderscript-v8.jar')
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation('me.numbereight.sdk:nesdk:0.36.0@aar') {
+        transitive = true
+        exclude group: 'org.jetbrains', module: 'annotations'
+    }
 }

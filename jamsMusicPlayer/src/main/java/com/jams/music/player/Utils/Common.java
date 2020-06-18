@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.images.ImageManager;
 import com.jams.music.player.AsyncTasks.AsyncGoogleMusicAuthenticationTask;
+import com.jams.music.player.BuildConfig;
 import com.jams.music.player.DBHelpers.DBAccessHelper;
 import com.jams.music.player.GMusicHelpers.GMusicClientCalls;
 import com.jams.music.player.Helpers.UIElementsHelper;
@@ -59,6 +60,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import me.numbereight.sdk.NumberEight;
 
 /**
  * Singleton class that provides access to common objects
@@ -113,6 +116,9 @@ public class Common extends Application {
 
 	//Specifies whether the app is currently downloading pinned songs from the GMusic app.
 	private boolean mIsFetchingPinnedSongs = false;
+
+	//NumberEight instance.
+	private NumberEight mNumberEight;
 
 	public static final String uid4 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvFlvWGADp9cW2LPuOIjDPB";
 	public static final String uid2 = "ormNR2mpS8HR8utvhNHKs2AJzV8GLPh35m3rE6GPND4GsOdrbySPETG4+0fvagBr5E";
@@ -250,6 +256,10 @@ public class Common extends Application {
 
         //Init DisplayImageOptions.
         initDisplayImageOptions();
+
+        //NumberEight.
+		NumberEight.start(BuildConfig.NUMBEREIGHT_KEY, mContext);
+		mNumberEight = new NumberEight();
 
 		//Log the user into Google Play Music only if the account is currently set up and active.
 		if (mSharedPreferences.getBoolean("GOOGLE_PLAY_MUSIC_ENABLED", false)==true) {
@@ -828,7 +838,7 @@ public class Common extends Application {
     public Picasso getPicasso() {
         return mPicasso;
     }
-	
+
 	public ImageManager getImageManager() {
 		return mImageManager;
 	}
