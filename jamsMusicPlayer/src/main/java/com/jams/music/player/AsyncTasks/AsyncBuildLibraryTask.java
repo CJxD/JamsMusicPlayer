@@ -448,6 +448,9 @@ public class AsyncBuildLibraryTask extends AsyncTask<String, String, Void> {
         	String genreId = genresCursor.getString(0);
         	String genreName = genresCursor.getString(1);
 
+        	if (genreId==null)
+        		continue;
+
             if (genreName==null || genreName.isEmpty() ||
                 genreName.equals(" ") || genreName.equals("   ") ||
                 genreName.equals("    "))
