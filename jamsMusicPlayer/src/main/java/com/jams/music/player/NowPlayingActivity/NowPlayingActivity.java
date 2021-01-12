@@ -26,14 +26,14 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.DrawerLayout.DrawerListener;
-import android.util.Log;
+
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -42,9 +42,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -56,14 +54,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jams.music.player.Animations.FadeAnimation;
-import com.jams.music.player.Animations.TranslateAnimation;
-import com.jams.music.player.AsyncTasks.AsyncRemovePinnedSongsTask;
-import com.jams.music.player.DBHelpers.DBAccessHelper;
 import com.jams.music.player.Drawers.QueueDrawerFragment;
 import com.jams.music.player.Helpers.TypefaceHelper;
 import com.jams.music.player.Helpers.UIElementsHelper;
 import com.jams.music.player.R;
-import com.jams.music.player.Services.AudioPlaybackService;
 import com.jams.music.player.Utils.Common;
 import com.velocity.view.pager.library.VelocityViewPager;
 
@@ -942,7 +936,7 @@ public class NowPlayingActivity extends FragmentActivity {
     /**
      * Drawer open/close listener.
      */
-    private DrawerListener mDrawerListener = new DrawerListener() {
+    private DrawerLayout.DrawerListener mDrawerListener = new DrawerLayout.DrawerListener() {
 
 		@Override
 		public void onDrawerClosed(View drawer) {

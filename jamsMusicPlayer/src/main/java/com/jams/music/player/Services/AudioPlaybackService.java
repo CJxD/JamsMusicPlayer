@@ -28,7 +28,6 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.MergeCursor;
-import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.AudioManager.OnAudioFocusChangeListener;
 import android.media.MediaMetadataRetriever;
@@ -44,7 +43,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -61,7 +60,6 @@ import com.jams.music.player.DBHelpers.DBAccessHelper;
 import com.jams.music.player.Helpers.AudioManagerHelper;
 import com.jams.music.player.Helpers.EqualizerHelper;
 import com.jams.music.player.Helpers.SongHelper;
-import com.jams.music.player.NowPlayingActivity.NowPlayingActivity;
 import com.jams.music.player.PlaybackKickstarter.PlaybackKickstarter.BuildCursorListener;
 import com.jams.music.player.R;
 import com.jams.music.player.RemoteControlClient.RemoteControlClientCompat;
@@ -758,7 +756,7 @@ public class AudioPlaybackService extends Service {
 	 */
 	@SuppressLint("NewApi") 
 	private Notification buildJBNotification(SongHelper songHelper) {
-		mNotificationBuilder = new NotificationCompat.Builder(mContext);
+		mNotificationBuilder = new NotificationCompat.Builder(mContext, Common.NOTIFICATION_CHANNEL_AUDIO_PLAYBACK);
 		mNotificationBuilder.setOngoing(true);
 		mNotificationBuilder.setAutoCancel(false);
 		mNotificationBuilder.setSmallIcon(R.drawable.notif_icon);

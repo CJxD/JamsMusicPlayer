@@ -19,15 +19,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.media.audiofx.Equalizer;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.jams.music.player.R;
 import com.jams.music.player.AsyncTasks.AsyncApplyEQToAlbumTask;
 import com.jams.music.player.DBHelpers.DBAccessHelper;
 import com.jams.music.player.EqualizerActivity.EqualizerActivity;
-import com.jams.music.player.NowPlayingActivity.NowPlayingActivity;
 import com.jams.music.player.Utils.Common;
 
 public class EQAlbumsListDialog extends DialogFragment {

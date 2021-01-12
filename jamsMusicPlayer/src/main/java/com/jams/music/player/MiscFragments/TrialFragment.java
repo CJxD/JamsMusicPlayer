@@ -18,27 +18,22 @@ package com.jams.music.player.MiscFragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.TypedValue;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jams.music.player.R;
-import com.jams.music.player.Helpers.TypefaceHelper;
 import com.jams.music.player.InAppBilling.IabHelper;
 import com.jams.music.player.InAppBilling.IabResult;
 import com.jams.music.player.InAppBilling.Purchase;
 import com.jams.music.player.MainActivity.MainActivity;
-import com.jams.music.player.Utils.Common;
 
 public class TrialFragment extends Fragment {
 	

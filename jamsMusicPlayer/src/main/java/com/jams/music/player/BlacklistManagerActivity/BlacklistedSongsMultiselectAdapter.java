@@ -18,7 +18,6 @@ package com.jams.music.player.BlacklistManagerActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Paint;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.jams.music.player.R;

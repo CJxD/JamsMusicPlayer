@@ -19,10 +19,9 @@ package com.jams.music.player.SettingsActivity;
 import main.java.de.psdev.licensesdialog.LicensesDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.jams.music.player.R;
 import com.jams.music.player.Dialogs.AddMusicLibraryDialog;

@@ -25,14 +25,15 @@ import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.jams.music.player.R;
 import com.jams.music.player.DBHelpers.DBAccessHelper;
@@ -48,7 +49,7 @@ import com.jams.music.player.Utils.Common;
  * 
  * @author Saravan Pantham
  *******************************************************/
-public class BlacklistedElementsDialog extends DialogFragment { 
+public class BlacklistedElementsDialog extends DialogFragment {
 	
 	//Temp array that holds the checkbox statuses in the ListView.
 	private Common mApp;
@@ -169,13 +170,14 @@ public class BlacklistedElementsDialog extends DialogFragment {
 	static class BlacklistedElementsAdapter extends SimpleCursorAdapter {
 		
 		private Cursor mCursor = null;
+		private Context mContext = null;
 		private String elementName = "";
 		private String artistName = "";
 		
 	    public BlacklistedElementsAdapter(Context context, Cursor cursor) {
 	        super(context, -1, null, new String[] {}, new int[] {}, 0);
 	        mCursor = cursor;
-	        
+	        mContext = context;
 	    }
 
 	    @Override

@@ -28,7 +28,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.TypedValue;
@@ -37,6 +36,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.jams.music.player.R;
 import com.jams.music.player.Helpers.UIElementsHelper;

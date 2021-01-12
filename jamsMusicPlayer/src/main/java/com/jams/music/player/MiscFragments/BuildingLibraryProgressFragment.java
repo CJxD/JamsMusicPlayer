@@ -15,13 +15,11 @@
  */
 package com.jams.music.player.MiscFragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +35,7 @@ import com.jams.music.player.R;
 import com.jams.music.player.AsyncTasks.AsyncBuildLibraryTask.OnBuildLibraryProgressUpdate;
 import com.jams.music.player.Helpers.TypefaceHelper;
 import com.jams.music.player.MainActivity.MainActivity;
-import com.jams.music.player.Services.BuildMusicLibraryService;
 import com.jams.music.player.Utils.Common;
-import com.jams.music.player.WelcomeActivity.WelcomeActivity;
 
 public class BuildingLibraryProgressFragment extends Fragment implements OnBuildLibraryProgressUpdate {
 	

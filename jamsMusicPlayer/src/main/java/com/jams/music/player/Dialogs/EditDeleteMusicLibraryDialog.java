@@ -26,8 +26,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.widget.Toast;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.jams.music.player.R;
 import com.jams.music.player.DBHelpers.DBAccessHelper;

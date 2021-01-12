@@ -17,7 +17,6 @@
 package com.velocity.view.pager.library;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
@@ -28,13 +27,14 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
-import android.support.v4.os.ParcelableCompat;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
-import android.support.v4.view.*;
-import android.support.v4.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
-import android.support.v4.view.accessibility.AccessibilityRecordCompat;
-import android.support.v4.widget.EdgeEffectCompat;
+import androidx.core.os.ParcelableCompat;
+import androidx.core.os.ParcelableCompatCreatorCallbacks;
+import androidx.core.view.*;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityRecordCompat;
+import androidx.core.widget.EdgeEffectCompat;
+import androidx.viewpager.widget.PagerAdapter;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.FocusFinder;
@@ -1639,7 +1639,7 @@ public class VelocityViewPager extends ViewGroup implements View.OnClickListener
 
         int firstOffset = (int) (mFirstOffset * width);
         if (x < firstOffset) {
-            if (ViewCompat.getOverScrollMode(this) != OVER_SCROLL_NEVER && mLeftEdge.isFinished()) {
+            if (getOverScrollMode() != OVER_SCROLL_NEVER && mLeftEdge.isFinished()) {
                 mLeftEdge.onAbsorb((int) Math.abs(mScroller.getCurrVelocity()));
             }
 
@@ -1651,7 +1651,7 @@ public class VelocityViewPager extends ViewGroup implements View.OnClickListener
 
         int lastOffset = (int) (mLastOffset * width);
         if (x > lastOffset) {
-            if (ViewCompat.getOverScrollMode(this) != OVER_SCROLL_NEVER && mRightEdge.isFinished()) {
+            if (getOverScrollMode() != OVER_SCROLL_NEVER && mRightEdge.isFinished()) {
                 mRightEdge.onAbsorb((int) Math.abs(mScroller.getCurrVelocity()));
             }
 
@@ -1892,7 +1892,7 @@ public class VelocityViewPager extends ViewGroup implements View.OnClickListener
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             final int layerType = enable ?
-                    ViewCompat.LAYER_TYPE_HARDWARE : ViewCompat.LAYER_TYPE_NONE;
+                    View.LAYER_TYPE_HARDWARE : View.LAYER_TYPE_NONE;
             ViewCompat.setLayerType(getChildAt(i), layerType, null);
         }
     }
@@ -2206,13 +2206,13 @@ public class VelocityViewPager extends ViewGroup implements View.OnClickListener
         }
 
         if (scrollX < leftBound) {
-            if (ViewCompat.getOverScrollMode(this) != OVER_SCROLL_NEVER && leftAbsolute) {
+            if (getOverScrollMode() != OVER_SCROLL_NEVER && leftAbsolute) {
                 float over = leftBound - scrollX;
                 needsInvalidate = mLeftEdge.onPull(Math.abs(over) / width);
             }
             scrollX = leftBound;
         } else if (scrollX > rightBound) {
-            if (ViewCompat.getOverScrollMode(this) != OVER_SCROLL_NEVER && rightAbsolute) {
+            if (getOverScrollMode() != OVER_SCROLL_NEVER && rightAbsolute) {
                 float over = scrollX - rightBound;
                 needsInvalidate = mRightEdge.onPull(Math.abs(over) / width);
             }
@@ -2866,7 +2866,7 @@ public class VelocityViewPager extends ViewGroup implements View.OnClickListener
     @Override
     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
         // Dispatch scroll events from this ViewPager.
-        if (event.getEventType() == AccessibilityEventCompat.TYPE_VIEW_SCROLLED) {
+        if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED) {
             return super.dispatchPopulateAccessibilityEvent(event);
         }
 
@@ -2974,7 +2974,7 @@ public class VelocityViewPager extends ViewGroup implements View.OnClickListener
             event.setClassName(VelocityViewPager.class.getName());
             final AccessibilityRecordCompat recordCompat = AccessibilityRecordCompat.obtain();
             recordCompat.setScrollable(canScroll());
-            if (event.getEventType() == AccessibilityEventCompat.TYPE_VIEW_SCROLLED
+            if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED
                     && mAdapter != null) {
                 recordCompat.setItemCount(mAdapter.getCount());
                 recordCompat.setFromIndex(mCurItem);

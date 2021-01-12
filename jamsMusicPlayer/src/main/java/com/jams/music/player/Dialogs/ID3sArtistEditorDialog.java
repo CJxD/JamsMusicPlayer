@@ -44,7 +44,7 @@ import android.database.Cursor;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import androidx.fragment.app.DialogFragment;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -56,7 +56,6 @@ import android.widget.Toast;
 import com.jams.music.player.R;
 import com.jams.music.player.DBHelpers.DBAccessHelper;
 import com.jams.music.player.Helpers.TypefaceHelper;
-import com.jams.music.player.MainActivity.MainActivity;
 
 public class ID3sArtistEditorDialog extends DialogFragment {
 

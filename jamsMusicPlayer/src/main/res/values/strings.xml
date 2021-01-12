@@ -860,4 +860,7 @@
     <string name="select_music_folders">Select Music Folders</string>
     <string name="refresh_music_library">Refresh Music Library</string>
 
+    <string name="audio_playback_notifications_title">Audio Playback Service</string>
+    <string name="background_tasks_notifications_title">Background Tasks</string>
+
 </resources>
