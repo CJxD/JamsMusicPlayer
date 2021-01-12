@@ -177,9 +177,9 @@ public class MusicFoldersSelectionFragment extends Fragment {
 		
 		File f = new File(dirPath);
 		File[] files = f.listFiles();
-		Arrays.sort(files);
 		 
 		if (files!=null) {
+			Arrays.sort(files);
 			
 			for(int i=0; i < files.length; i++) {
 				
