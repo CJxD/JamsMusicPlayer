@@ -18,12 +18,12 @@ package com.jams.music.player.MusicLibraryEditorActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Paint;
-import android.support.v4.widget.SimpleCursorAdapter;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.jams.music.player.R;

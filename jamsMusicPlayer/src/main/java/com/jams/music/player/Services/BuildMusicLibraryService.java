@@ -22,11 +22,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.jams.music.player.R;
 import com.jams.music.player.AsyncTasks.AsyncBuildLibraryTask;
+import com.jams.music.player.Utils.Common;
 import com.jams.music.player.WelcomeActivity.WelcomeActivity;
 
 public class BuildMusicLibraryService extends Service implements AsyncBuildLibraryTask.OnBuildLibraryProgressUpdate {
@@ -46,7 +47,7 @@ public class BuildMusicLibraryService extends Service implements AsyncBuildLibra
 	public int onStartCommand(Intent intent, int startId, int flags) {
 		
 		//Create a persistent notification that keeps this service running and displays the scan progress.
-		mBuilder = new NotificationCompat.Builder(mContext);
+		mBuilder = new NotificationCompat.Builder(mContext, Common.NOTIFICATION_CHANNEL_BACKGROUND_TASKS);
 		mBuilder.setSmallIcon(R.drawable.notif_icon);
 		mBuilder.setContentTitle(getResources().getString(R.string.building_music_library));
 		mBuilder.setTicker(getResources().getString(R.string.building_music_library));

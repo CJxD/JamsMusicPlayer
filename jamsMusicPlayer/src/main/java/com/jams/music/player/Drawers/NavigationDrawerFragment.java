@@ -26,7 +26,7 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +43,6 @@ import com.jams.music.player.R;
 import com.jams.music.player.Helpers.TypefaceHelper;
 import com.jams.music.player.MainActivity.MainActivity;
 import com.jams.music.player.SettingsActivity.SettingsActivity;
-import com.jams.music.player.SettingsActivity.SettingsActivity____;
 import com.jams.music.player.Utils.Common;
 
 public class NavigationDrawerFragment extends Fragment {

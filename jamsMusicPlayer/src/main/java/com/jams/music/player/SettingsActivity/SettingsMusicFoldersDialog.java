@@ -27,11 +27,9 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
+import androidx.fragment.app.Fragment;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
@@ -39,11 +37,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jams.music.player.AsyncTasks.AsyncSaveMusicFoldersTask;
 import com.jams.music.player.DBHelpers.DBAccessHelper;
 import com.jams.music.player.Helpers.TypefaceHelper;
 import com.jams.music.player.Helpers.UIElementsHelper;
-import com.jams.music.player.MusicFoldersSelectionFragment.MultiselectListViewAdapter;
 import com.jams.music.player.R;
 import com.jams.music.player.Utils.Common;
 import com.jams.music.player.WelcomeActivity.WelcomeActivity;

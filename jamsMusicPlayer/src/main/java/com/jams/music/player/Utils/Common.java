@@ -17,6 +17,9 @@ package com.jams.music.player.Utils;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,15 +28,15 @@ import android.database.Cursor;
 import android.database.MergeCursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.content.LocalBroadcastManager;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.common.images.ImageManager;
 import com.jams.music.player.AsyncTasks.AsyncGoogleMusicAuthenticationTask;
@@ -136,6 +139,10 @@ public class Common extends Application {
 	//Broadcast elements.
 	private LocalBroadcastManager mLocalBroadcastManager;
 	public static final String UPDATE_UI_BROADCAST = "com.jams.music.player.NEW_SONG_UPDATE_UI";
+
+	//Notification channels.
+	public static final String NOTIFICATION_CHANNEL_AUDIO_PLAYBACK = "com.jams.music.player.notifications.AUDIO_PLAYBACK";
+	public static final String NOTIFICATION_CHANNEL_BACKGROUND_TASKS = "com.jams.music.player.notifications.BACKGROUND_TASKS";
 
 	//Update UI broadcast flags.
 	public static final String SHOW_AUDIOBOOK_TOAST = "AudiobookToast";
@@ -256,6 +263,27 @@ public class Common extends Application {
     														   .imageDownloader(new ByteArrayUniversalImageLoader(mContext))
     														   .build();
     	mImageLoader.init(mImageLoaderConfiguration);
+
+    	//Set up notification channels for Android 8+.
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			NotificationChannel audio = new NotificationChannel(
+					NOTIFICATION_CHANNEL_AUDIO_PLAYBACK,
+					getString(R.string.audio_playback_notifications_title),
+					NotificationManager.IMPORTANCE_LOW
+			);
+			audio.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+
+			NotificationChannel bgTasks = new NotificationChannel(
+					NOTIFICATION_CHANNEL_BACKGROUND_TASKS,
+					getString(R.string.background_tasks_notifications_title),
+					NotificationManager.IMPORTANCE_MIN
+			);
+			bgTasks.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+
+			NotificationManager service = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			service.createNotificationChannel(audio);
+			service.createNotificationChannel(bgTasks);
+		}
 
         //Init DisplayImageOptions.
         initDisplayImageOptions();

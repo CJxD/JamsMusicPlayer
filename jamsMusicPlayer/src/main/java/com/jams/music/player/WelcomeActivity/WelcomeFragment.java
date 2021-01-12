@@ -16,13 +16,13 @@
 package com.jams.music.player.WelcomeActivity;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.jams.music.player.R;
 import com.jams.music.player.Helpers.TypefaceHelper;

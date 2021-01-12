@@ -17,30 +17,19 @@ package com.jams.music.player.BrowserSubListActivity;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SimpleCursorAdapter;
+
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.andraskindler.quickscroll.Scrollable;
-import com.jams.music.player.AsyncTasks.AsyncAddToQueueTask;
-import com.jams.music.player.Dialogs.AddToPlaylistDialog;
-import com.jams.music.player.Dialogs.CautionEditArtistsDialog;
-import com.jams.music.player.Dialogs.ID3sArtistEditorDialog;
 import com.jams.music.player.Helpers.TypefaceHelper;
 import com.jams.music.player.Helpers.UIElementsHelper;
-import com.jams.music.player.ImageTransformers.PicassoCircularTransformer;
-import com.jams.music.player.ListViewFragment.ListViewFragment;
 import com.jams.music.player.R;
 import com.jams.music.player.Utils.Common;
 

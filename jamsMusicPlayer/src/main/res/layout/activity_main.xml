@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-    <android.support.v4.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
 	    android:id="@+id/main_activity_drawer_root"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent" >
@@ -35,6 +35,6 @@
 	        android:layout_height="match_parent"
 	        android:layout_gravity="start" />
 	    
-	</android.support.v4.widget.DrawerLayout>
+	</androidx.drawerlayout.widget.DrawerLayout>
     
 </FrameLayout>

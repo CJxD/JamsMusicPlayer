@@ -24,7 +24,8 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v4.content.AsyncTaskLoader;
+
+import androidx.loader.content.AsyncTaskLoader;
 
 /*********************************************************************************
  * Custom CursorLoader class that adds support for SQLite databases.

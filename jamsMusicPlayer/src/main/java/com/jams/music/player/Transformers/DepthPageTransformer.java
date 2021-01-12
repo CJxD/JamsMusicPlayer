@@ -15,10 +15,11 @@
  */
 package com.jams.music.player.Transformers;
 
-import android.support.v4.view.ViewPager.PageTransformer;
 import android.view.View;
 
-public class DepthPageTransformer implements PageTransformer {
+import androidx.viewpager.widget.ViewPager;
+
+public class DepthPageTransformer implements ViewPager.PageTransformer {
     private static float MIN_SCALE = 0.75f;
 
     public void transformPage(View view, float position) {

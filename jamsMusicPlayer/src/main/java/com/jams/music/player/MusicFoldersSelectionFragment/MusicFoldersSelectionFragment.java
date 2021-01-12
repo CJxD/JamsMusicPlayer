@@ -16,7 +16,6 @@
 package com.jams.music.player.MusicFoldersSelectionFragment;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,11 +24,10 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,38 +118,16 @@ public class MusicFoldersSelectionFragment extends Fragment {
 
 		mFoldersListView.setDividerHeight(1);
 		mRootDir = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
-		mCurrentDir = mRootDir;
 
-        //Get a mCursor with a list of all the current folder paths (will be empty if this is the first run).
-		mCursor = mApp.getDBAccessHelper().getAllMusicFolderPaths();
-        
-		//Get a list of all the paths that are currently stored in the DB.
-		for (int i=0; i < mCursor.getCount(); i++) {
-			mCursor.moveToPosition(i);
-			
-			//Filter out any double slashes.
-			String path = mCursor.getString(mCursor.getColumnIndex(DBAccessHelper.FOLDER_PATH));
-			if (path.contains("//")) {
-				path.replace("//", "/");
-			}
+		refreshDirs();
 
-			mMusicFolders.put(path, true);
-		}
-		
-		//Close the cursor.
-        if (mCursor!=null)
-		    mCursor.close();
-		
-		//Get the folder hierarchy of the selected folder.
-        getDir(mRootDir);
-        
         mFoldersListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
 				String newPath = mFileFolderPathsList.get(index);
 				getDir(newPath);
-				
+
 			}
         	
         });
@@ -165,6 +141,36 @@ public class MusicFoldersSelectionFragment extends Fragment {
     private void setCurrentDirText() {
         mCurrentFolderText.setText(mCurrentDir);
     }
+
+	/**
+	 * Refreshes the folder hierarchy list.
+	 */
+	public void refreshDirs() {
+		mCurrentDir = mRootDir;
+
+		//Get a mCursor with a list of all the current folder paths (will be empty if this is the first run).
+		mCursor = mApp.getDBAccessHelper().getAllMusicFolderPaths();
+
+		//Get a list of all the paths that are currently stored in the DB.
+		for (int i=0; i < mCursor.getCount(); i++) {
+			mCursor.moveToPosition(i);
+
+			//Filter out any double slashes.
+			String path = mCursor.getString(mCursor.getColumnIndex(DBAccessHelper.FOLDER_PATH));
+			if (path.contains("//")) {
+				path.replace("//", "/");
+			}
+
+			mMusicFolders.put(path, true);
+		}
+
+		//Close the cursor.
+		if (mCursor!=null)
+			mCursor.close();
+
+		//Get the folder hierarchy of the selected folder.
+		getDir(mRootDir);
+	}
 	
 	/**
 	 * Retrieves the folder hierarchy for the specified folder 
@@ -179,9 +185,9 @@ public class MusicFoldersSelectionFragment extends Fragment {
 		
 		File f = new File(dirPath);
 		File[] files = f.listFiles();
-		Arrays.sort(files);
 		 
 		if (files!=null) {
+			Arrays.sort(files);
 			
 			for(int i=0; i < files.length; i++) {
 				

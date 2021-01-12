@@ -16,10 +16,10 @@
 package com.jams.music.player.WelcomeActivity;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +33,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jams.music.player.DBHelpers.DBAccessHelper;
 import com.jams.music.player.R;
 import com.jams.music.player.Helpers.TypefaceHelper;
 import com.jams.music.player.MusicFoldersSelectionFragment.MusicFoldersSelectionFragment;
@@ -188,6 +189,15 @@ public class MusicFoldersFragment extends Fragment {
 		}
 		
 		return mMusicFoldersSelectionFragment;
+	}
+
+	/**
+	 * Refreshes the folder hierarchy list.
+	 */
+	public void refresh() {
+		if (mMusicFoldersSelectionFragment!=null) {
+			mMusicFoldersSelectionFragment.refreshDirs();
+		}
 	}
 	
 }

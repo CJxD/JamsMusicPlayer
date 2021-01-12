@@ -21,11 +21,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
 import com.jams.music.player.R;
 import com.jams.music.player.AsyncTasks.AsyncAutoGetAlbumArtTask;
 import com.jams.music.player.SettingsActivity.SettingsActivity____;
+import com.jams.music.player.Utils.Common;
 
 public class AutoFetchAlbumArtService extends Service {
 	
@@ -51,7 +52,7 @@ public class AutoFetchAlbumArtService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
 		//Launch a notification to set the service as a foreground service.
-		builder = new NotificationCompat.Builder(this);
+		builder = new NotificationCompat.Builder(mContext, Common.NOTIFICATION_CHANNEL_BACKGROUND_TASKS);
         builder.setSmallIcon(R.drawable.ic_launcher);
         builder.setContentTitle(getResources().getString(R.string.downloading_missing_cover_art));
         builder.setTicker(getResources().getString(R.string.downloading_missing_cover_art));

@@ -22,8 +22,6 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,24 +30,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
@@ -58,9 +53,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.jams.music.player.R;
 import com.jams.music.player.Helpers.TypefaceHelper;
 import com.jams.music.player.InAppBilling.IabHelper;
-import com.jams.music.player.InAppBilling.IabResult;
-import com.jams.music.player.InAppBilling.Inventory;
-import com.jams.music.player.InAppBilling.Purchase;
 import com.jams.music.player.MainActivity.MainActivity;
 import com.jams.music.player.MiscFragments.TrialFragment;
 import com.jams.music.player.Services.BuildMusicLibraryService;
