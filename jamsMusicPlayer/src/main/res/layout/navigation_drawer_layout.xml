@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/library_picker_layout"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:background="@drawable/banner_cover"
         android:layout_alignParentTop="true" >
 
@@ -35,6 +35,20 @@
                 android:layout_above="@+id/library_picker_spinner"
                 android:layout_alignLeft="@+id/library_picker_spinner"
                 android:layout_alignStart="@+id/library_picker_spinner" />
+
+            <TextView
+                android:id="@+id/library_picker_device_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/library_picker_header_text"
+                android:layout_alignStart="@+id/library_picker_header_text"
+                android:layout_alignLeft="@+id/library_picker_header_text"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="-1dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/device_id"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#FFFFFF" />
 
         </RelativeLayout>
 

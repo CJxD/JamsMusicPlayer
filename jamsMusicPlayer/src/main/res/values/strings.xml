@@ -817,6 +817,7 @@
     <string name="queue_empty_info">Your queue is empty.</string>
     <string name="play_all_caps">PLAY ALL</string>
     <string name="a_b_repeat">A-B Repeat</string>
+    <string name="device_id">%s</string>
     <string name="music_library_colon">Music Library: </string>
     <string name="album_small">album</string>
     <string name="song_small">song</string>

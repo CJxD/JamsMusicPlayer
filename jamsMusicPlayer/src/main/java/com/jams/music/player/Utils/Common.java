@@ -64,10 +64,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import me.numbereight.sdk.NumberEight;
-import me.numbereight.sdk.Parameters;
-import me.numbereight.sdk.types.NESituation;
-import me.numbereight.sdk.types.event.Glimpse;
+import ai.numbereight.audiences.Audiences;
+import ai.numbereight.sdk.ConsentOptions;
+import ai.numbereight.sdk.NumberEight;
 
 /**
  * Singleton class that provides access to common objects
@@ -289,14 +288,10 @@ public class Common extends Application {
         initDisplayImageOptions();
 
         //NumberEight.
-		NumberEight.start(BuildConfig.NUMBEREIGHT_KEY, mContext);
+		NumberEight.APIToken token = NumberEight.start(BuildConfig.NUMBEREIGHT_KEY, mContext, ConsentOptions.withConsentToAll());
+		Audiences.startRecording(token);
+		Log.d("Audiences", "Recording audiences as " + NumberEight.getDeviceId(mContext));
 		mNumberEight = new NumberEight();
-		mNumberEight.onSituationUpdated(new NumberEight.SubscriptionCallback<NESituation>() {
-			@Override
-			public void onUpdated(Glimpse<NESituation> glimpse) {
-				Log.d("NumberEight", glimpse.toString());
-			}
-		});
 
 		//Log the user into Google Play Music only if the account is currently set up and active.
 		if (mSharedPreferences.getBoolean("GOOGLE_PLAY_MUSIC_ENABLED", false)==true) {

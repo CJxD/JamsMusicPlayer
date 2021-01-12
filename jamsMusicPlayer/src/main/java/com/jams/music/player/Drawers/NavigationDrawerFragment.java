@@ -45,6 +45,8 @@ import com.jams.music.player.MainActivity.MainActivity;
 import com.jams.music.player.SettingsActivity.SettingsActivity;
 import com.jams.music.player.Utils.Common;
 
+import ai.numbereight.sdk.NumberEight;
+
 public class NavigationDrawerFragment extends Fragment {
 	
 	private Context mContext;
@@ -92,6 +94,11 @@ public class NavigationDrawerFragment extends Fragment {
         mLibraryPickerSpinner.setAdapter(mLibrariesAdapter);
         mLibraryPickerSpinner.setSelection(mApp.getCurrentLibraryIndex());
         mLibraryPickerSpinner.setOnItemSelectedListener(librariesItemSelectedListener);
+
+		//Display the NumberEight device ID in navigation.
+		TextView deviceIdView = (TextView) rootView.findViewById(R.id.library_picker_device_id);
+		if (deviceIdView != null)
+			deviceIdView.setText(getString(R.string.device_id, NumberEight.getDeviceId(mContext)));
 
         browsersListView.setDividerHeight(0);
 

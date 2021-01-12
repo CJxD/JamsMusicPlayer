@@ -51,7 +51,7 @@ android {
 repositories {
     mavenCentral()
     maven {
-        url 'http://repo.numbereight.me/artifactory/gradle-release-local'
+        url 'http://repo.numbereight.ai/artifactory/gradle-release-local'
     }
 }
 
@@ -78,7 +78,10 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.gms:play-services:12.0.1'
-    implementation('me.numbereight.sdk:nesdk:0.36.0@aar') {
+    implementation('ai.numbereight.sdk:audiences:1.1.0') {
+        exclude group: 'org.jetbrains', module: 'annotations'
+    }
+    implementation('ai.numbereight.sdk:nesdk:1.1.0@aar') {
         transitive = true
         exclude group: 'org.jetbrains', module: 'annotations'
     }
