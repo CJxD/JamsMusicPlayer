@@ -22,6 +22,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,10 +36,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.jams.music.player.BuildConfig;
 import com.jams.music.player.Drawers.NavigationDrawerFragment;
 import com.jams.music.player.Drawers.QueueDrawerFragment;
 import com.jams.music.player.FoldersFragment.FilesFoldersFragment;
@@ -47,6 +50,11 @@ import com.jams.music.player.Helpers.UIElementsHelper;
 import com.jams.music.player.ListViewFragment.ListViewFragment;
 import com.jams.music.player.R;
 import com.jams.music.player.Utils.Common;
+
+import ai.numbereight.audiences.Audiences;
+import ai.numbereight.sdk.ConsentOptions;
+import ai.numbereight.sdk.NumberEight;
+import ai.numbereight.sdk.common.authorization.AuthorizationChallengeHandler;
 
 public class MainActivity extends FragmentActivity {
 
@@ -79,6 +87,12 @@ public class MainActivity extends FragmentActivity {
     public static final String FRAGMENT_HEADER = "FragmentHeader";
 	public static final int LIST_LAYOUT = 0;
 	public static final int GRID_LAYOUT = 1;
+
+	//NumberEight permissions resolver.
+	private AuthorizationChallengeHandler.Resolver mPermissionsResolver;
+
+	//Request codes.
+	public static final int REQUEST_NE_PERMISSIONS = 8;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -141,7 +155,29 @@ public class MainActivity extends FragmentActivity {
             showAlbumArtScanningDialog();
             mApp.getSharedPreferences().edit().putBoolean(Common.FIRST_RUN, false).commit();
         }
-    	
+
+		//NumberEight.
+		NumberEight.APIToken token = NumberEight.start(BuildConfig.NUMBEREIGHT_KEY, mContext,
+				ConsentOptions.withConsentToAll(), new AuthorizationChallengeHandler() {
+					@Override
+					public void requestAuthorization(Context context, String[] strings, Resolver resolver) {
+						mPermissionsResolver = resolver;
+
+						//Check if permissions have already been requested.
+						if (mApp.getSharedPreferences().getBoolean(Common.EXTRA_PERMISSIONS_REQUESTED, false)==true) {
+							resolver.resolve();
+							return;
+						}
+
+						ActivityCompat.requestPermissions(
+								MainActivity.this, strings,
+								REQUEST_NE_PERMISSIONS
+						);
+					}
+				});
+		Audiences.startRecording(token);
+		Log.d("Audiences", "Recording audiences as " + NumberEight.getDeviceId(mContext));
+
 	}
 	
 	/**
@@ -540,6 +576,18 @@ public class MainActivity extends FragmentActivity {
         }
 
     }
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions,
+										   int[] grantResults) {
+		if (requestCode == REQUEST_NE_PERMISSIONS) {
+			if (mPermissionsResolver != null) {
+				mPermissionsResolver.resolve();
+			}
+
+			mApp.getSharedPreferences().edit().putBoolean(Common.EXTRA_PERMISSIONS_REQUESTED, true).commit();
+		}
+	}
 	
 	/**
 	 * Getters/Setters.

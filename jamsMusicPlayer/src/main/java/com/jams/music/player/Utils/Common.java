@@ -30,7 +30,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
@@ -40,7 +39,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.common.images.ImageManager;
 import com.jams.music.player.AsyncTasks.AsyncGoogleMusicAuthenticationTask;
-import com.jams.music.player.BuildConfig;
 import com.jams.music.player.DBHelpers.DBAccessHelper;
 import com.jams.music.player.GMusicHelpers.GMusicClientCalls;
 import com.jams.music.player.Helpers.UIElementsHelper;
@@ -63,10 +61,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-
-import ai.numbereight.audiences.Audiences;
-import ai.numbereight.sdk.ConsentOptions;
-import ai.numbereight.sdk.NumberEight;
 
 /**
  * Singleton class that provides access to common objects
@@ -121,9 +115,6 @@ public class Common extends Application {
 
 	//Specifies whether the app is currently downloading pinned songs from the GMusic app.
 	private boolean mIsFetchingPinnedSongs = false;
-
-	//NumberEight instance.
-	private NumberEight mNumberEight;
 
 	public static final String uid4 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvFlvWGADp9cW2LPuOIjDPB";
 	public static final String uid2 = "ormNR2mpS8HR8utvhNHKs2AJzV8GLPh35m3rE6GPND4GsOdrbySPETG4+0fvagBr5E";
@@ -228,6 +219,7 @@ public class Common extends Application {
     public static final String PLAYLISTS_LAYOUT = "PlaylistsLayout";
     public static final String GENRES_LAYOUT = "GenresLayout";
     public static final String FOLDERS_LAYOUT = "FoldersLayout";
+	public static final String EXTRA_PERMISSIONS_REQUESTED = "PermissionsDone";
 
     //Repeat mode constants.
     public static final int REPEAT_OFF = 0;
@@ -286,12 +278,6 @@ public class Common extends Application {
 
         //Init DisplayImageOptions.
         initDisplayImageOptions();
-
-        //NumberEight.
-		NumberEight.APIToken token = NumberEight.start(BuildConfig.NUMBEREIGHT_KEY, mContext, ConsentOptions.withConsentToAll());
-		Audiences.startRecording(token);
-		Log.d("Audiences", "Recording audiences as " + NumberEight.getDeviceId(mContext));
-		mNumberEight = new NumberEight();
 
 		//Log the user into Google Play Music only if the account is currently set up and active.
 		if (mSharedPreferences.getBoolean("GOOGLE_PLAY_MUSIC_ENABLED", false)==true) {
