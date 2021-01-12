@@ -15,6 +15,7 @@
  */
 package com.jams.music.player.WelcomeActivity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +26,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -55,6 +58,8 @@ public class WelcomeActivity extends FragmentActivity {
 	
 	private MusicFoldersFragment mMusicFoldersFragment;
 	public static BuildingLibraryProgressFragment mBuildingLibraryProgressFragment;
+
+	private static final int REQUEST_EXTERNAL_STORAGE = 0;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class WelcomeActivity extends FragmentActivity {
 
 		setContentView(R.layout.activity_welcome);
 		setTheme(R.style.AppThemeLight);
-		
+
 		if (getActionBar()!=null)
 			getActionBar().hide();
 
@@ -110,6 +115,21 @@ public class WelcomeActivity extends FragmentActivity {
 
 		@Override
 		public void onPageSelected(int page) {
+
+			/* If the user has landed at the music folders
+			 * selection fragment, ask for storage permission.
+			 */
+			if (page==1) {
+				if (ContextCompat.checkSelfPermission(
+						mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+						PackageManager.PERMISSION_GRANTED) {
+					ActivityCompat.requestPermissions(
+							WelcomeActivity.this,
+							new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+							REQUEST_EXTERNAL_STORAGE
+					);
+				}
+			}
 
 			/* If the user swiped away from the music folders 
 			 * selection fragment, save the music folders to 
@@ -185,10 +205,8 @@ public class WelcomeActivity extends FragmentActivity {
 		@Override
 		public void onAnimationEnd(Animation arg0) {
 			indicator.setVisibility(View.INVISIBLE);
-
-            Intent intent = new Intent(mContext, BuildMusicLibraryService.class);
-            startService(intent);
-			
+			Intent intent = new Intent(mContext, BuildMusicLibraryService.class);
+			startService(intent);
 		}
 
 		@Override
@@ -327,6 +345,15 @@ public class WelcomeActivity extends FragmentActivity {
     	}
     	
     }
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions,
+										   int[] grantResults) {
+		if (requestCode == REQUEST_EXTERNAL_STORAGE) {
+			//Refresh folders regardless of whether user accepted or denied.
+			mMusicFoldersFragment.refresh();
+		}
+	}
 	
 	class WelcomePagerAdapter extends FragmentStatePagerAdapter {
 		

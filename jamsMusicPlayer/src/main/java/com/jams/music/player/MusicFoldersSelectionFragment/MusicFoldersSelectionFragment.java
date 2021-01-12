@@ -118,38 +118,16 @@ public class MusicFoldersSelectionFragment extends Fragment {
 
 		mFoldersListView.setDividerHeight(1);
 		mRootDir = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
-		mCurrentDir = mRootDir;
 
-        //Get a mCursor with a list of all the current folder paths (will be empty if this is the first run).
-		mCursor = mApp.getDBAccessHelper().getAllMusicFolderPaths();
-        
-		//Get a list of all the paths that are currently stored in the DB.
-		for (int i=0; i < mCursor.getCount(); i++) {
-			mCursor.moveToPosition(i);
-			
-			//Filter out any double slashes.
-			String path = mCursor.getString(mCursor.getColumnIndex(DBAccessHelper.FOLDER_PATH));
-			if (path.contains("//")) {
-				path.replace("//", "/");
-			}
+		refreshDirs();
 
-			mMusicFolders.put(path, true);
-		}
-		
-		//Close the cursor.
-        if (mCursor!=null)
-		    mCursor.close();
-		
-		//Get the folder hierarchy of the selected folder.
-        getDir(mRootDir);
-        
         mFoldersListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
 				String newPath = mFileFolderPathsList.get(index);
 				getDir(newPath);
-				
+
 			}
         	
         });
@@ -163,6 +141,36 @@ public class MusicFoldersSelectionFragment extends Fragment {
     private void setCurrentDirText() {
         mCurrentFolderText.setText(mCurrentDir);
     }
+
+	/**
+	 * Refreshes the folder hierarchy list.
+	 */
+	public void refreshDirs() {
+		mCurrentDir = mRootDir;
+
+		//Get a mCursor with a list of all the current folder paths (will be empty if this is the first run).
+		mCursor = mApp.getDBAccessHelper().getAllMusicFolderPaths();
+
+		//Get a list of all the paths that are currently stored in the DB.
+		for (int i=0; i < mCursor.getCount(); i++) {
+			mCursor.moveToPosition(i);
+
+			//Filter out any double slashes.
+			String path = mCursor.getString(mCursor.getColumnIndex(DBAccessHelper.FOLDER_PATH));
+			if (path.contains("//")) {
+				path.replace("//", "/");
+			}
+
+			mMusicFolders.put(path, true);
+		}
+
+		//Close the cursor.
+		if (mCursor!=null)
+			mCursor.close();
+
+		//Get the folder hierarchy of the selected folder.
+		getDir(mRootDir);
+	}
 	
 	/**
 	 * Retrieves the folder hierarchy for the specified folder 
