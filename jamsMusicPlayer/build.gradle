@@ -81,7 +81,7 @@ dependencies {
     implementation('ai.numbereight.sdk:audiences:1.1.0') {
         exclude group: 'org.jetbrains', module: 'annotations'
     }
-    implementation('ai.numbereight.sdk:nesdk:1.1.0@aar') {
+    implementation('ai.numbereight.sdk:nesdk:1.1.1@aar') {
         transitive = true
         exclude group: 'org.jetbrains', module: 'annotations'
     }
